@@ -1,26 +1,22 @@
-from playwright.sync_api import sync_playwright, expect
+from playwright.sync_api import expect, Page
 import pytest
 
 
 @pytest.mark.regression
 @pytest.mark.authorization
-def test_wrong_email_or_password():
-    with sync_playwright() as playwright:
-        browser = playwright.firefox.launch(headless=False, slow_mo=500)
-        page = browser.new_page()
+def test_wrong_email_or_password(chromium_page: Page):
+    chromium_page.goto("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/auth/login")
 
-        page.goto("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/auth/login")
+    email_input = chromium_page.get_by_test_id("login-form-email-input").locator("input")
+    email_input.fill("user.name@gmail.com")
 
-        email_input = page.get_by_test_id("login-form-email-input").locator("input")
-        email_input.fill("user.name@gmail.com")
+    password_input = chromium_page.get_by_test_id("login-form-password-input").locator("input")
+    password_input.fill("password")
 
-        password_input = page.get_by_test_id("login-form-password-input").locator("input")
-        password_input.fill("password")
+    login_button = chromium_page.get_by_test_id("login-page-login-button")
+    login_button.click()
 
-        login_button = page.get_by_test_id("login-page-login-button")
-        login_button.click()
+    alert_errors = chromium_page.get_by_test_id("login-page-wrong-email-or-password-alert")
 
-        alert_errors = page.get_by_test_id("login-page-wrong-email-or-password-alert")
-
-        expect(alert_errors).to_be_visible()
-        expect(alert_errors).to_have_text("Wrong email or password")
+    expect(alert_errors).to_be_visible()
+    expect(alert_errors).to_have_text("Wrong email or password")
