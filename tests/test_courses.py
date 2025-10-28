@@ -3,6 +3,8 @@ from pages.create_course_page import CreateCoursePage
 import pytest
 
 
+@pytest.mark.courses
+@pytest.mark.regression
 def test_create_course(courses_list_page: CoursesListPage, create_course_page: CreateCoursePage):
     create_course_page.navigate('https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/courses/create')
 
