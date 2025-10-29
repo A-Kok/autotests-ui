@@ -2,6 +2,7 @@ from components.base_component import BaseComponent
 from playwright.sync_api import Page
 
 from elements.input import Input
+from elements.textarea import Textarea
 
 
 class CreateCourseFormComponent(BaseComponent):
@@ -10,7 +11,7 @@ class CreateCourseFormComponent(BaseComponent):
 
         self.title_input = Input(page, "create-course-form-title-input", "Title")
         self.estimated_time_input = Input(page, "create-course-form-estimated-time-input", "Estimated Time")
-        self.description_input = Input(page, "create-course-form-description-input", "Description")
+        self.description_textarea = Textarea(page, "create-course-form-description-input", "Description")
         self.max_score_input = Input(page, "create-course-form-max-score-input", "Max Score")
         self.min_score_input = Input(page, "create-course-form-min-score-input", "Min Score")
     
@@ -21,8 +22,8 @@ class CreateCourseFormComponent(BaseComponent):
         self.estimated_time_input.fill(estimated_time)
         self.estimated_time_input.check_have_value(estimated_time)
 
-        self.description_input.fill(description)
-        self.description_input.check_have_value(description)
+        self.description_textarea.fill(description)
+        self.description_textarea.check_have_value(description)
 
         self.max_score_input.fill(max_score)
         self.max_score_input.check_have_value(max_score)
@@ -37,8 +38,8 @@ class CreateCourseFormComponent(BaseComponent):
         self.estimated_time_input.check_visible()
         self.estimated_time_input.check_have_value(estimated_time)
 
-        self.description_input.check_visible()
-        self.description_input.check_have_value(description)
+        self.description_textarea.check_visible()
+        self.description_textarea.check_have_value(description)
 
         self.max_score_input.check_visible()
         self.max_score_input.check_have_value(max_score)
