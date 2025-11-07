@@ -6,11 +6,13 @@ from pages.authentication.registration_page import RegistrationPage
 from _pytest.fixtures import SubRequest
 
 from tools.playwright.pages import init_playwright_page
+from config import settings
 
 
 @pytest.fixture
 def chromium_page(request: SubRequest, playwright: Playwright) -> Page:
     yield from init_playwright_page(playwright, request.node.name)
+
 
 @pytest.fixture(scope="session")
 def initialize_browser_state(playwright: Playwright):
@@ -19,14 +21,17 @@ def initialize_browser_state(playwright: Playwright):
     page = context.new_page()
 
     registration_page = RegistrationPage(page=page)
-    registration_page.navigate("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/auth/registration")
+    registration_page.navigate(f"{settings.app_url}/#/auth/registration")
+    # registration_page.navigate("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/auth/registration")
 
-    registration_page.registration_form.fill(email="user@gmail.com", username="username", password="password")
+    registration_page.registration_form.fill(email=settings.test_user.email, password=settings.test_user.password,
+                                             username=settings.test_user.username)
     registration_page.click_registration_button()
 
-    context.storage_state(path="browser-state.json")
+    context.storage_state(path=settings.browser_state_file)
     browser.close()
+
 
 @pytest.fixture
 def chromium_page_with_state(request: SubRequest, initialize_browser_state, playwright: Playwright):
-    yield from init_playwright_page(playwright, request.node.name, storage_state="browser-state.json")
+    yield from init_playwright_page(playwright, test_name=request.node.name, storage_state=settings.browser_state_file)
