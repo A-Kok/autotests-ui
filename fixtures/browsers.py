@@ -25,8 +25,11 @@ def initialize_browser_state(playwright: Playwright):
 
     registration_page.navigate(AppRoute.REGISTRATION)
 
-    registration_page.registration_form.fill(email=settings.test_user.email, password=settings.test_user.password,
-                                             username=settings.test_user.username)
+    registration_page.registration_form.fill(
+        email=settings.test_user.email,
+        password=settings.test_user.password,
+        username=settings.test_user.username
+    )
     registration_page.click_registration_button()
 
     context.storage_state(path=settings.browser_state_file)
