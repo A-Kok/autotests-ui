@@ -9,7 +9,6 @@ def open_browser():
         ...
 
 
-
 @allure.step("Creating a new course with title '{title}'")
 def create_new_course(title: str): ...
 
