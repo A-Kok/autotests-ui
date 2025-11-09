@@ -34,7 +34,7 @@ jobs:
       - name: Get allure history
         uses: actions/checkout@v3
         if: always()
-        continues-on-error: true
+        continue-on-error: true
         with:
           ref: gh-pages
           path: gh-pages
