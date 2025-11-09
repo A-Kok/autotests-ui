@@ -1,0 +1,17 @@
+# ide
+.idea
+.gigaide
+
+# python
+.venv
+__pycache__
+
+# allure
+allure-results
+allure-report
+
+# testing artifact
+*.html
+*.json
+videos
+tracing

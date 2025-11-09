@@ -1,0 +1,9 @@
+pytest
+pytest-rerunfailures
+pytest-xdist
+playwright
+pytest-playwright
+allure-pytest
+email-validator
+pydantic
+pydantic-settings
