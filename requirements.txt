@@ -7,3 +7,4 @@ allure-pytest
 email-validator
 pydantic
 pydantic-settings
+ui-coverage-tool
